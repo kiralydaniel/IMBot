@@ -1,7 +1,10 @@
 import os
 
 import utility
-
+import roster_update
+import invite
+import user_commands
+import roster
 
 # Discord bot setup with intents
 bot = utility.bot
