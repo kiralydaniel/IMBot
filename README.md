@@ -1,2 +1,52 @@
 # IMBot
- 
+## Description
+Simple bot created in Python for personal use. 
+It helps creating roster for boosts, managing player balance in a game called World of Warcraft.
+
+## Commands
+
+### User commands:
+Everyone is able to use these commands.
+
+```
+!b - Sends user balance in private message
+```
+![!b image](https://i.imgur.com/Z7x1mB8.png)
+```
+!char - Update user payment character in Balance sheet
+```
+![!char image](https://i.imgur.com/QhuLmqp.png)
+
+### Admin commands:
+Only users with admin permission can use these commands.
+
+```
+!update1 - Read player names from friday.txt and insert them into Friday Boost name column
+!update2 - Read player names from saturday.txt and insert them into Saturday Boost name column
+```
+![!update1 image](https://i.imgur.com/Uf8XC2s.png)
+
+
+```
+!boost1 - Update user balance based on Friday Boost sheet data
+!boost2 - Update user balance based on Saturday Boost sheet data
+```
+![!boost1 image](https://i.imgur.com/TR0Divy.png)
+
+```
+!roster1 - Read names from Friday Boost sheet and writes a message in Discord with mentioning everyone and placing class icons in front of names
+!roster2 - Read names from Saturday Boost sheet and writes a message in Discord with mentioning everyone and placing class icons in front of names
+```
+![!roster1 image](https://i.imgur.com/YqLoo9E.png)
+
+```
+!inv1 - Send message to every user that is in the Friday Boost sheet
+!inv2 - Send message to every user that is in the Saturday Boost sheet
+```
+![!inv1 image](https://i.imgur.com/WQg0Kpb.png)
+
+```
+!invping1 - Mentions every user that is in the Friday Boost sheet in a post
+!invping2 - Mentions every user that is in the Saturday Boost sheet in a post
+```
+![!invping1 image](https://i.imgur.com/hrTykGr.png)
