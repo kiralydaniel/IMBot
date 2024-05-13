@@ -3,7 +3,7 @@ from discord.ext import commands
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
-
+import logging
 
 # Discord bot intents
 intents = discord.Intents.all()
@@ -25,6 +25,9 @@ sheet1 = spreadsheet.worksheet('runs')
 # Get Sheet2
 sheet2 = spreadsheet.worksheet('balance')
 
+
+# Set up logging
+logging.basicConfig(filename='bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Get the directory path of the current script
 current_dir = os.path.dirname(os.path.realpath(__file__))
