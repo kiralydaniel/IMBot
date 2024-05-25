@@ -26,6 +26,8 @@ async def inv1(ctx):
     horde_emoji = "<:horde:1239150579595477103>"
     alli_emoji = "<:alli:1239150577875685428>"
 
+    not_found_names = []  # List to store names of members not found
+
     for name in names_sheet1:
         if name:  # Check if the cell is not None
             try:
@@ -38,7 +40,7 @@ async def inv1(ctx):
                     if member:
                         # Create an embed message
                         embed = discord.Embed(
-                            title=f"​{inv_title} IM Boost",
+                            title=f"{inv_title} IM Boost",
                             description=f"To copy the whisper just click on the right side of the box\n\n{horde_emoji} **Horde:** ```/w {inv_horde}-Ragnaros inv```\n{alli_emoji} **Alli:** ```/w {inv_alli}-Ragnaros inv```",
                             color=discord.Color.blue()
                         )
@@ -49,11 +51,20 @@ async def inv1(ctx):
                         # Send the embedded message to the user
                         await member.send(embed=embed)
                     else:
-                        print(f"Member with Discord name {discord_name} not found.")
+                        not_found_names.append(discord_name)
                 else:
                     print(f"Name {name} not found in Sheet2.")
             except Exception as e:
                 print(f"Error: {e}")
+
+    # Send a notification to the command sender if any members were not found
+    if not_found_names:
+        embed_not_found = discord.Embed(
+            title="Members Not Found",
+            description="\n".join(not_found_names),
+            color=discord.Color.red()
+        )
+        await ctx.author.send(embed=embed_not_found)
 
     # Create an embed message for the notification
     embed_notification = discord.Embed(
@@ -67,6 +78,7 @@ async def inv1(ctx):
 
     # Send the embedded notification message to your Discord account in private
     await ctx.author.send(embed=embed_notification)
+
 
 
 @bot.command()
@@ -83,6 +95,8 @@ async def inv2(ctx):
     horde_emoji = "<:horde:1239150579595477103>"
     alli_emoji = "<:alli:1239150577875685428>"
 
+    not_found_names = []  # List to store names of members not found
+
     for name in names_sheet1:
         if name:  # Check if the cell is not None
             try:
@@ -106,11 +120,20 @@ async def inv2(ctx):
                         # Send the embedded message to the user
                         await member.send(embed=embed)
                     else:
-                        print(f"Member with Discord name {discord_name} not found.")
+                        not_found_names.append(discord_name)
                 else:
                     print(f"Name {name} not found in Sheet2.")
             except Exception as e:
                 print(f"Error: {e}")
+
+    # Send a notification to the command sender if any members were not found
+    if not_found_names:
+        embed_not_found = discord.Embed(
+            title="Members Not Found",
+            description="\n".join(not_found_names),
+            color=discord.Color.red()
+        )
+        await ctx.author.send(embed=embed_not_found)
 
     # Create an embed message for the notification
     embed_notification = discord.Embed(
