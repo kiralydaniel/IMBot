@@ -75,7 +75,7 @@ async def inv2(ctx):
     # Get names from Sheet1 column A in rows 2-17
     names_sheet1 = runs.col_values(4)[1:17]
 
-    inv_title = runs.cell(1, 1).value
+    inv_title = runs.cell(1, 4).value.upper()
     inv_horde = runs.cell(24, 5).value
     inv_alli = runs.cell(25, 5).value
 
