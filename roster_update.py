@@ -41,7 +41,7 @@ async def update2(ctx):
 # Discord command to boost a user's gold in Balance based on Sheet1 data
 @bot.command()
 @utility.is_admin()
-async def boost1(ctx):
+async def balance1(ctx):
     # Get names and numbers from Sheet1 from row 2 to row 17
     names_sheet1 = runs.col_values(1)[1:17]
     numbers_sheet1 = runs.col_values(3)[1:17]
@@ -80,7 +80,7 @@ async def boost1(ctx):
 # Discord command to boost a user's gold in Balance based on Sheet1 data
 @bot.command()
 @utility.is_admin()
-async def boost2(ctx):
+async def balance2(ctx):
     # Get names and numbers from Sheet1 from row 2 to row 17
     names_sheet1 = runs.col_values(4)[1:17]
     numbers_sheet1 = runs.col_values(6)[1:17]
