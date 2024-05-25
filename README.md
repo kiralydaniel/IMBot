@@ -28,10 +28,10 @@ Only users with admin permission can use these commands.
 
 
 ```
-!boost1 - Update user balance based on Friday Boost sheet data
-!boost2 - Update user balance based on Saturday Boost sheet data
+!balance1 - Update user balance based on Friday Boost sheet data
+!balance2 - Update user balance based on Saturday Boost sheet data
 ```
-![!boost1 image](https://i.imgur.com/TR0Divy.png)
+![!balance1 image](https://i.imgur.com/TR0Divy.png)
 
 ```
 !roster1 - Read names from Friday Boost sheet and writes a message in Discord with mentioning everyone and placing class icons in front of names
