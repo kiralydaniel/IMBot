@@ -23,7 +23,7 @@ async def update(ctx, day: str):
         file_path = utility.saturday_txt_path
         column = 'D'
     else:
-        await ctx.send("Invalid option. Please choose 'friday' or 'saturday'.")
+        await utility.send_embed_private(ctx, "Invalid option. Please choose 'friday' or 'saturday'.")
         return
 
     with open(file_path, 'r', encoding='utf-8') as file:
