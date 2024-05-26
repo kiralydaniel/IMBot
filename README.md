@@ -40,7 +40,8 @@ Only users with admin permission can use these commands.
 ![!roster1 image](https://i.imgur.com/YqLoo9E.png)
 
 ```
-!inv1 - Send message to every user that is in the Friday Boost sheet
-!inv2 - Send message to every user that is in the Saturday Boost sheet
+!inv - Send message to every user that is in the Friday or Saturday Boost sheet depending on the argument.
+
+Current arguments: friday, saturday
 ```
 ![!inv1 image](https://i.imgur.com/WQg0Kpb.png)
