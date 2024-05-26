@@ -26,7 +26,7 @@ async def b(ctx):
     try:
         row_index = name_column.index(author_name) + 1
     except ValueError:
-        await ctx.author.send("Your name was not found in Balance.")
+        await utility.send_embed_private("Your name was not found in Balance.")
         return
 
     # Retrieve the number from the adjacent cell in the same row
@@ -70,7 +70,7 @@ async def char(ctx, message):
     try:
         row_index = name_column.index(author_name) + 1
     except ValueError:
-        await ctx.send("Your name was not found in Balance.")
+        await utility.send_embed_private("Your name was not found in Balance.")
         return
 
     # Update the message in the third column of the same row
