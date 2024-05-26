@@ -13,154 +13,57 @@ balance = utility.sheet2
 
 @bot.command()
 @utility.is_admin()
-async def roster1(ctx):
+async def roster(ctx, day: str, lb_count: int = 0):
+    day = day.lower()
+    
+    if day == "friday":
+        title = runs.cell(1, 1).value.upper()
+        names_sheet1 = runs.col_values(1)[1:17]
+        classes_sheet1 = runs.col_values(2)[1:17]
+    elif day == "saturday":
+        title = runs.cell(1, 4).value.upper()
+        names_sheet1 = runs.col_values(4)[1:17]
+        classes_sheet1 = runs.col_values(5)[1:17]
+    else:
+        await utility.send_embed_private(ctx, "Invalid option. Please choose 'friday' or 'saturday'.")
+        return
+
     # Get the guild object
     guild = ctx.guild
-    
-    # Get the title from Sheet1 A1 cell and make it bigger in size
-    title = runs.cell(1, 1).value.upper()
-
-    # Get names and classes from Sheet1 from row 2 to row 17
-    names_sheet1 = runs.col_values(1)[1:17]
-    classes_sheet1 = runs.col_values(2)[1:17]
 
     # Separate names into different categories
     tanks = names_sheet1[:2]
     healers = names_sheet1[2:5]
     dps = names_sheet1[5:]
 
-    # Format the message
-    message = f"# {title}\n\n"
-    message += "**Tank:**\n"
-    for name in tanks:
-        # Get the class emoji for the name
-        class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Balance and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
-
-    message += "\n**Heal**:\n"
-    for name in healers:
-        # Get the class emoji for the name
-        class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Balance and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
-
-    message += "\n**DPS**:\n"
-    for name in dps:
-        # Get the class emoji for the name
-        class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Balance and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
-
-    await ctx.send(message)
-
-
-
-@bot.command()
-@utility.is_admin()
-async def roster2(ctx):
-    # Get the guild object
-    guild = ctx.guild
-    
-    # Get the title from Sheet1 A1 cell and make it bigger in size
-    title = runs.cell(1, 4).value.upper()
-
-    # Get names and classes from Sheet1 from row 2 to row 17
-    names_sheet1 = runs.col_values(4)[1:17]
-    classes_sheet1 = runs.col_values(5)[1:17]
-
-    # Separate names into different categories
-    tanks = names_sheet1[:2]
-    healers = names_sheet1[2:5]
-    dps = names_sheet1[5:]
+    # Adjust DPS and LB based on lb_count
+    lb = []
+    if lb_count > 0:
+        lb = dps[-lb_count:]
+        dps = dps[:-lb_count]
 
     # Format the message
     message = f"# {title}\n\n"
     message += "**Tank:**\n"
     for name in tanks:
-        # Get the class emoji for the name
         class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Sheet2 and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
+        message += await utility.format_name_with_emoji(guild, name, class_name)
 
     message += "\n**Heal**:\n"
     for name in healers:
-        # Get the class emoji for the name
         class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Sheet2 and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
+        message += await utility.format_name_with_emoji(guild, name, class_name)
 
     message += "\n**DPS**:\n"
     for name in dps:
-        # Get the class emoji for the name
         class_name = classes_sheet1[names_sheet1.index(name)]
-        emoji_id = await utility.get_emoji_id(guild, class_name)
-        if emoji_id:
-            emoji = f"<:{class_name}:{emoji_id}>"
-        else:
-            emoji = f":{class_name}:"
-        
-        # Find the corresponding user in Sheet2 and mention them
-        user = discord.utils.get(guild.members, display_name=name)
-        if user:
-            mention = user.mention
-        else:
-            mention = name  # If user not found, use the name without mention
-        message += f"{emoji} {mention}\n"
+        message += await utility.format_name_with_emoji(guild, name, class_name)
+
+    if lb:
+        message += "\n**LB**:\n"
+        for name in lb:
+            class_name = classes_sheet1[names_sheet1.index(name)]
+            message += await utility.format_name_with_emoji(guild, name, class_name)
 
     await ctx.send(message)
+
