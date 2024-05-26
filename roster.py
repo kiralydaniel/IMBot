@@ -16,6 +16,10 @@ balance = utility.sheet2
 async def roster(ctx, day: str, lb_count: int = 0):
     day = day.lower()
     
+    if day not in utility.boost_days:
+        await utility.send_invalid_argument_embed(ctx)
+        return
+
     if day == "friday":
         title = runs.cell(1, 1).value.upper()
         names_sheet1 = runs.col_values(1)[1:17]
@@ -24,9 +28,7 @@ async def roster(ctx, day: str, lb_count: int = 0):
         title = runs.cell(1, 4).value.upper()
         names_sheet1 = runs.col_values(4)[1:17]
         classes_sheet1 = runs.col_values(5)[1:17]
-    else:
-        await utility.send_embed_private(ctx, "Invalid option. Please choose 'friday' or 'saturday'.")
-        return
+
 
     # Get the guild object
     guild = ctx.guild

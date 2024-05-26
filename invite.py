@@ -16,6 +16,10 @@ balance = utility.sheet2
 @utility.is_admin()
 async def inv(ctx, day: str):
     day = day.lower()
+
+    if day not in utility.boost_days:
+        await utility.send_invalid_argument_embed(ctx)
+        return
     
     if day == "friday":
         # Get names from Sheet1 column A in rows 2-17
@@ -31,9 +35,6 @@ async def inv(ctx, day: str):
         inv_title = runs.cell(1, 4).value
         inv_horde = runs.cell(24, 5).value
         inv_alli = runs.cell(25, 5).value
-    else:
-        await ctx.author.send("Invalid option. Please choose 'friday' or 'saturday'.")
-        return
 
     # Custom emoji for Horde and Alli
     horde_emoji = "<:horde:1239150579595477103>"

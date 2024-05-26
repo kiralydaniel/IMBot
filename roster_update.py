@@ -15,6 +15,10 @@ balance_sheet = utility.sheet2
 @utility.is_admin()
 async def update(ctx, day: str):
     day = day.lower()
+
+    if day not in utility.boost_days:
+        await utility.send_invalid_argument_embed(ctx)
+        return
     
     if day == "friday":
         file_path = utility.friday_txt_path
@@ -22,9 +26,6 @@ async def update(ctx, day: str):
     elif day == "saturday":
         file_path = utility.saturday_txt_path
         column = 'D'
-    else:
-        await utility.send_embed_private(ctx, "Invalid option. Please choose 'friday' or 'saturday'.")
-        return
 
     with open(file_path, 'r', encoding='utf-8') as file:
         names = file.readlines()
@@ -42,15 +43,16 @@ async def update(ctx, day: str):
 async def balance(ctx, day: str):
     day = day.lower()
     
+    if day not in utility.boost_days:
+        await utility.send_invalid_argument_embed(ctx)
+        return
+
     if day == "friday":
         names_sheet1 = runs.col_values(1)[1:17]
         numbers_sheet1 = runs.col_values(3)[1:17]
     elif day == "saturday":
         names_sheet1 = runs.col_values(4)[1:17]
         numbers_sheet1 = runs.col_values(6)[1:17]
-    else:
-        await ctx.send("Invalid option. Please choose 'friday' or 'saturday'.")
-        return
 
     # Iterate over names and corresponding numbers
     for name, number in zip(names_sheet1, numbers_sheet1):
