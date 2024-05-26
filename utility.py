@@ -25,6 +25,9 @@ sheet1 = spreadsheet.worksheet('runs')
 # Get Sheet2
 sheet2 = spreadsheet.worksheet('balance')
 
+# Valid arguments
+boost_days = ["friday", "saturday"]
+
 
 # Set up logging
 logging.basicConfig(filename='bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -38,6 +41,11 @@ saturday_txt_path = os.path.join(current_dir, 'data', 'saturday.txt')
 
 async def send_embed_private(ctx, message):
     embed = discord.Embed(description=message, color=discord.Color.gold())
+    await ctx.author.send(embed=embed)
+
+async def send_invalid_argument_embed(ctx):
+    embed = discord.Embed(title="Invalid Argument", color=discord.Color.red())
+    embed.add_field(name="Choose from the following arguments:", value="\n".join(boost_days))
     await ctx.author.send(embed=embed)
 
 # Discord event to delete user's message after command completion
@@ -61,3 +69,11 @@ async def get_emoji_id(guild, emoji_name):
     
     # Return None if emoji is not found
     return None
+
+async def format_name_with_emoji(guild, name, class_name):
+    emoji_id = await get_emoji_id(guild, class_name)
+    emoji = f"<:{class_name}:{emoji_id}>" if emoji_id else f":{class_name}:"
+    user = discord.utils.get(guild.members, display_name=name)
+    mention = user.mention if user else name
+    return f"{emoji} {mention}\n"
+
