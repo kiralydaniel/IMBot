@@ -16,6 +16,7 @@ balance = utility.sheet2
 
 
 @bot.command()
+@utility.is_in_bot_channel()
 async def b(ctx):
     # Get user's Discord name
     
@@ -58,6 +59,7 @@ async def b(ctx):
 
 
 @bot.command()
+@utility.is_in_bot_channel()
 async def char(ctx, message):
     # Append "-Ragnaros" to the message
     message += "-Ragnaros"

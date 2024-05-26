@@ -77,3 +77,17 @@ async def format_name_with_emoji(guild, name, class_name):
     mention = user.mention if user else name
     return f"{emoji} {mention}\n"
 
+def is_in_bot_channel():
+    async def predicate(ctx):
+        allowed_channel_names = ["bot"]  # List of allowed channel names
+        return ctx.channel.name in allowed_channel_names
+    return commands.check(predicate)
+
+# Event listener for command errors
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CheckFailure):
+        await send_embed_private(ctx, "This command can only be used in the **#bot** channel.")
+        await ctx.message.delete()
+    else:
+        raise error
