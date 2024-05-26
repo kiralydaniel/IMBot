@@ -10,32 +10,31 @@ runs = utility.sheet1
 # Get Sheet2
 balance = utility.sheet2
 
-
-# Discord command to update names from "friday.txt" to Google Sheets
+# Update names in Sheet from txt
 @bot.command()
 @utility.is_admin()
-async def update1(ctx):
-    with open(utility.friday_txt_path, 'r', encoding='utf-8') as file:
+async def update(ctx, day: str):
+    day = day.lower()
+    
+    if day == "friday":
+        file_path = utility.friday_txt_path
+        column = 'A'
+    elif day == "saturday":
+        file_path = utility.saturday_txt_path
+        column = 'D'
+    else:
+        await ctx.send("Invalid option. Please choose 'friday' or 'saturday'.")
+        return
+
+    with open(file_path, 'r', encoding='utf-8') as file:
         names = file.readlines()
         names = [name.strip() for name in names]  # Remove newline characters
 
-    # Write names to Sheet1 column 1 starting from the second row
-    runs.update('A2:A{}'.format(len(names) + 1), [[name] for name in names])
+    # Write names to the appropriate column starting from the second row
+    runs.update(f'{column}2:{column}{len(names) + 1}', [[name] for name in names])
 
-    await utility.send_embed_private(ctx, "**Friday** boost updated in the sheet!")
+    await utility.send_embed_private(ctx, f"**{day.capitalize()}** boost updated in the sheet!")
 
-# Discord command to update names from "saturday.txt" to Google Sheets
-@bot.command()
-@utility.is_admin()
-async def update2(ctx):
-    with open(utility.saturday_txt_path, 'r', encoding='utf-8') as file:
-        names = file.readlines()
-        names = [name.strip() for name in names]  # Remove newline characters
-
-    # Write names to Sheet1 column 4 starting from the second row
-    runs.update('D2:D{}'.format(len(names) + 1), [[name] for name in names])
-
-    await utility.send_embed_private(ctx, "**Saturday** boost updated in the sheet!")
 
 
 # Discord command to boost a user's gold in Balance based on Sheet1 data
