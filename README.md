@@ -44,9 +44,3 @@ Only users with admin permission can use these commands.
 !inv2 - Send message to every user that is in the Saturday Boost sheet
 ```
 ![!inv1 image](https://i.imgur.com/WQg0Kpb.png)
-
-```
-!invping1 - Mentions every user that is in the Friday Boost sheet in a post
-!invping2 - Mentions every user that is in the Saturday Boost sheet in a post
-```
-![!invping1 image](https://i.imgur.com/hrTykGr.png)
