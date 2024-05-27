@@ -94,7 +94,7 @@ async def update_lb(ctx, day: str, lb_count: int):
     lb_members = valid_data[-lb_count:]
 
     if not lb_members:
-        await ctx.send("No valid LB members found.")
+        await utility.send_embed_private(ctx, "No valid LB members found.")
         return
 
     # Call the update_roster_message function to update the message
@@ -133,3 +133,9 @@ async def update_roster_message(guild_id, channel_id, lb_members):
         await message.edit(content=new_message_content)
     except Exception as e:
         print(f"Error updating message: {e}")
+
+@bot.command()
+@utility.is_admin()
+async def reset_message_store(ctx):
+    message_store.clear()
+    await utility.send_embed_private(ctx, "Message store has been reset.")
