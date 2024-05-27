@@ -48,11 +48,11 @@ async def balance(ctx, day: str):
         return
 
     if day == "friday":
-        names_sheet1 = runs.col_values(1)[1:17]
-        numbers_sheet1 = runs.col_values(3)[1:17]
+        names_sheet1 = runs.col_values(1)[1:19]
+        numbers_sheet1 = runs.col_values(3)[1:19]
     elif day == "saturday":
-        names_sheet1 = runs.col_values(4)[1:17]
-        numbers_sheet1 = runs.col_values(6)[1:17]
+        names_sheet1 = runs.col_values(4)[1:19]
+        numbers_sheet1 = runs.col_values(6)[1:19]
 
     # Iterate over names and corresponding numbers
     for name, number in zip(names_sheet1, numbers_sheet1):
