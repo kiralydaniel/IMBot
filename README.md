@@ -29,7 +29,7 @@ Only users with admin permission can use these commands.
 
 
 ```
-!balance1 - Update user balance based on {argument} Boost sheet data
+!balance - Update user balance based on {argument} Boost sheet data
 ```
 ![!balance1 image](https://i.imgur.com/TR0Divy.png)<br/><br/>
 
