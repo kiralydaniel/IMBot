@@ -56,6 +56,9 @@ async def balance(ctx, day: str):
 
     # Iterate over names and corresponding numbers
     for name, number in zip(names_sheet1, numbers_sheet1):
+        if not name.strip():  # Check if the name cell is empty or contains only whitespace
+            continue
+
         try:
             row_index_sheet2 = balance_sheet.col_values(4).index(name) + 1
         except ValueError:
