@@ -61,8 +61,6 @@ async def b(ctx):
 @bot.command()
 @utility.is_in_bot_channel()
 async def char(ctx, message):
-    # Append "-Ragnaros" to the message
-    message += "-Ragnaros"
 
     # Get user's Discord name
     author_name = ctx.author.name
