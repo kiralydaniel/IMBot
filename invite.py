@@ -22,14 +22,14 @@ async def inv(ctx, day: str):
         return
     
     if day == "friday":
-        # Get names from Sheet1 column A in rows 2-17
+        # Get names from Sheet1 column A in rows 2-19
         names_sheet1 = runs.col_values(1)[1:19]
 
         inv_title = runs.cell(1, 1).value
         inv_horde = runs.cell(26, 2).value
         inv_alli = runs.cell(27, 2).value
     elif day == "saturday":
-        # Get names from Sheet1 column A in rows 2-17
+        # Get names from Sheet1 column A in rows 2-19
         names_sheet1 = runs.col_values(4)[1:19]
 
         inv_title = runs.cell(1, 4).value
