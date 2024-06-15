@@ -86,8 +86,14 @@ def is_in_bot_channel():
 # Event listener for command errors
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CheckFailure):
+    if isinstance(error, commands.CommandNotFound):
+        await send_embed_private(ctx, "This command doesn't exist.\nPlease use a valid command:\n\n!b - Balance check\n!char *name* - Update payment character")
+        await ctx.message.delete()
+    elif isinstance(error, commands.CheckFailure):
         await send_embed_private(ctx, "This command can only be used in the **#bot** channel.")
+        await ctx.message.delete()
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await send_embed_private(ctx, f"Missing required argument: {error.param}. Please provide all necessary arguments.")
         await ctx.message.delete()
     else:
         raise error
