@@ -51,7 +51,7 @@ async def b(ctx):
         next_payment_gold = locale.format_string("%d", int(next_payment_gold), grouping=True)
 
     #Total gold 
-    total_gold = current_gold + next_payment_gold
+    total_gold = int(current_gold) + int(next_payment_gold)
 
     # Get the character name from Sheet2
     character_name = balance.cell(row_index, 3).value
