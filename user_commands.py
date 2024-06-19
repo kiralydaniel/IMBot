@@ -41,14 +41,17 @@ async def b(ctx):
         current_gold = locale.format_string("%d", int(current_gold), grouping=True)
     
     # Retrieve the number from the adjacent cell in the same row
-    incoming_gold = balance.cell(row_index, 5).value
+    next_payment_gold = balance.cell(row_index, 5).value
 
-    if incoming_gold is None:
-        incoming_gold = 0
+    if next_payment_gold is None:
+        next_payment_gold = 0
     else:
         # Format the number with commas separating every thousand
         locale.setlocale(locale.LC_ALL, '')  # Set the locale to the user's default
-        incoming_gold = locale.format_string("%d", int(incoming_gold), grouping=True)
+        next_payment_gold = locale.format_string("%d", int(next_payment_gold), grouping=True)
+
+    #Total gold 
+    total_gold = current_gold + next_payment_gold
 
     # Get the character name from Sheet2
     character_name = balance.cell(row_index, 3).value
@@ -57,7 +60,16 @@ async def b(ctx):
     user = ctx.author
 
     # Create an embed
-    embed = discord.Embed(title="Balance", description=f'\nPayment character: **{character_name}**\nBalance: **{current_gold} gold**\nIncoming payment: **{incoming_gold} gold**', color=discord.Color.gold())
+    embed = discord.Embed(
+        title="Balance",
+        description=(
+            f'\nPayment character: **{character_name}**\n\n'
+            f'Balance: **{current_gold} gold**\n'
+            f'Next payment: **{next_payment_gold} gold**\n'
+            f'Total gold: **{total_gold}**'
+        ),
+        color=discord.Color.gold()
+    )
 
     # Set the user's profile picture as the thumbnail
     embed.set_thumbnail(url=user.avatar)  
