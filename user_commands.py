@@ -50,9 +50,6 @@ async def b(ctx):
         locale.setlocale(locale.LC_ALL, '')  # Set the locale to the user's default
         next_payment_gold = locale.format_string("%d", int(next_payment_gold), grouping=True)
 
-    #Total gold 
-    total_gold = int(current_gold) + int(next_payment_gold)
-
     # Get the character name from Sheet2
     character_name = balance.cell(row_index, 3).value
 
@@ -63,10 +60,9 @@ async def b(ctx):
     embed = discord.Embed(
         title="Balance",
         description=(
-            f'\nPayment character: **{character_name}**\n\n'
+            f'\nPayment character: **{character_name}**\n'
             f'Balance: **{current_gold} gold**\n'
             f'Next payment: **{next_payment_gold} gold**\n'
-            f'Total gold: **{total_gold}**'
         ),
         color=discord.Color.gold()
     )
